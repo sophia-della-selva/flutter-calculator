@@ -111,17 +111,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _btn(String label) => Expanded(
-        child: ElevatedButton(
-          onPressed: () => _onPressed(label),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            minimumSize: const Size.fromHeight(60),
-            backgroundColor: Colors.deepPurple.shade100,
-            foregroundColor: Colors.black,
-            textStyle: const TextStyle(fontSize: 22),
-          ),
-          child: Text(label),
-        ),
+        child: label.isEmpty 
+          ? Container() // Empty space for unused buttons
+          : ElevatedButton(
+              onPressed: () => _onPressed(label),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                minimumSize: const Size.fromHeight(60),
+                backgroundColor: Colors.deepPurple.shade100,
+                foregroundColor: Colors.black,
+                textStyle: const TextStyle(fontSize: 22),
+              ),
+              child: Text(label),
+            ),
       );
 
   @override
@@ -130,7 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ['7', '8', '9', '/'],
       ['4', '5', '6', '*'],
       ['1', '2', '3', '-'],
-      ['0', 'x²', 'C', '='],  // MODIFIED: Added x² button, moved C and =
+      ['0', 'C', '=', '+'],   // RESTORED: Back to original with + button
+      ['x²', '', '', ''],     // NEW ROW: Square button with empty spaces
     ];
 
     return Scaffold(
