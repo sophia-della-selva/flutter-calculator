@@ -70,6 +70,27 @@ class _MyHomePageState extends State<MyHomePage> {
           _accumulator = '$_expression = Error';
           _expression = '';
         }
+      } else if (value == 'x²') {
+        // NEW FEATURE: Square button
+        if (_expression.isNotEmpty) {
+          try {
+            final exp = Expression.parse(_expression.trim());
+            final result = const ExpressionEvaluator().eval(exp, {});
+            if (result == double.infinity ||
+                result == double.negativeInfinity ||
+                result.isNaN) {
+              _accumulator = 'Error';
+              _expression = '';
+            } else {
+              final squared = result * result;
+              _accumulator = '$_expression² = $squared';
+              _expression = squared.toString();
+            }
+          } catch (_) {
+            _accumulator = 'Error';
+            _expression = '';
+          }
+        }
       } else {
         // Concatenate consecutive digits automatically
         if (_expression.isNotEmpty &&
@@ -109,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ['7', '8', '9', '/'],
       ['4', '5', '6', '*'],
       ['1', '2', '3', '-'],
-      ['0', 'C', '=', '+'],
+      ['0', 'x²', 'C', '='],  // MODIFIED: Added x² button, moved C and =
     ];
 
     return Scaffold(
